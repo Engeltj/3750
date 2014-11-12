@@ -12,12 +12,16 @@ var View = Backbone.View.extend({
 
 boneboiler.views.nav = View.extend({
     initialize: function() {
+        this.render();
+    },
+    render: function() {
         // Logged in
         if (boneboiler.user) {
             this.menu = [
-                "<li><a href=\"#\">Home</a></li>",
-                "<li><a href=\"#\">Harvesting Events</a></li>",
+                "<li><a href=\"/\">Home</a></li>",
+                "<li><a href=\"/events\">Harvesting Events</a></li>",
                 "<li><a href=\"#\">Account</a></li>",
+                "<li><a id=\"logout\" href=\"#\">Logout</a></li>",
             ];
         } else {
             this.menu = [
@@ -25,13 +29,23 @@ boneboiler.views.nav = View.extend({
                 "<li><a href=\"/register\">Register</a></li>",
             ];
         }
-        this.render();
-    },
-    render: function() {
+
         this.$el.html(_.template($('#navTPL').html()));
 
         this.$el.find("#actions").html(this.menu.join(""))
-    }
+    },
+    events: {
+        "click #logout" : "logout",
+    },
+    update: function() {
+        this.render();
+    },
+    logout: function(e) {
+        e.preventDefault();
+
+        boneboiler.user = false
+        Backbone.history.navigate("/", true);
+    },
 });
 
 boneboiler.views.home = View.extend({
@@ -67,5 +81,14 @@ boneboiler.views.forgot = View.extend({
     }, 
     render: function() {
         this.$el.html(_.template($('#forgotTPL').html()));
+    },
+});
+
+boneboiler.views.events = View.extend({
+    initialize: function() {
+        this.render();
+    }, 
+    render: function() {
+        this.$el.html(_.template($('#eventTPL').html()));
     },
 });

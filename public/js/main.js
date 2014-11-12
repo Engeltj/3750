@@ -13,6 +13,11 @@ var AppRouter = Backbone.Router.extend ({
             return;
         }
 
+        // update the active state on the nav
+        if (boneboiler.nav) {
+            boneboiler.nav.update();
+        }
+
         boneboiler.query_string = {}
         try {
             var qs = window.location.href.split("?")[1].split('&');
