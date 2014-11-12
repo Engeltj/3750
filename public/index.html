@@ -70,15 +70,74 @@
                 <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <h3 class="text-muted">Login</h3>
-                            <form action="" role="form">
+                            <form role="form">
+                                <div class="text-center">
+                                    <h3 class="text-muted">Login</h3>
+                                </div>
                                 <div class="form-group">
-                                    <label for="emailInput"></label>
+                                    <label for="emailInput">Email</label>
                                     <input type="email" class="form-control input-lg" id="emailInput" placeholder="Enter email">
-                                    <label for="passwordInput"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="passwordInput">Password</label>
                                     <input type="password" class="form-control input-lg" id="passwordInput" placeholder="Password">
                                 </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <a href="/forgot">Forgot your password?</a>
+                </div>
+            </div>
+        </script>
+
+        <script id="registerTPL" type="text/template">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <form role="form">
+                                <div class="text-center">
+                                    <h3 class="text-muted">Register</h3>
+                                </div>
+                                <div class="form-group">
+                                    <label for="emailInput">Email</label>
+                                    <input type="email" class="form-control input-lg" id="emailInput" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="passwordInput">Password</label>
+                                    <input type="password" class="form-control input-lg" id="passwordInput" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="passwordConfirmInput">Confirm Password</label>
+                                    <input type="password" class="form-control input-lg" id="passwordConfirmInput" placeholder="Confirm password">
+                                </div>
                                 <button class="btn btn-primary" type="submit">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <script id="forgotTPL" type="text/template">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <form role="form">
+                                <div class="text-center">
+                                    <h3 class="text-muted">Forgot Password</h3>
+                                </div>
+                                <div class="form-group">
+                                    <label for="emailInput">Email</label>
+                                    <input type="email" class="form-control input-lg" id="emailInput" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Reset Password</button>
+                                </div>
                             </form>
                         </div>
                     </div>
