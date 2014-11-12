@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Appleseed Collective</title>
+        <meta name="description" content="Reducing food waste one tree at a time">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Appleseed Collective">
+        <meta http-equiv="cache-control" content="no-cache" />
+        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
+        <link type="text/css" rel="stylesheet" href="/css/main.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <!--[if IE]>
+        <div class="container">
+            <div id="terribleBrowser" class="alert alert-danger">
+                <strong>Oh no!</strong> You're using a browser that we dont, officially, support.<br />
+                For the best experience upgrade your browser or even better, install <a class="alert-link" href="http://www.google.com/chrome" target="_blank">Google Chrome</a>.
+            </div>
+        </div>
+        <![endif]-->
+
+        <div id="page">
+            <div id="nav"></div>
+            <div id="content" class="container"></div>
+        </div>
+        <div id="modals"></div>
+        
+        <!-- Backbone Templates-->
+        <script type="text/template" id="homeTPL">
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-0 col-sm-push-7 col-xs-10 col-xs-offset-1">
+                    <img src="http://placehold.it/490x150" class="img-responsive" alt="Placeholder">
+                </div>
+                <div class="col-sm-6 col-sm-offset-1 col-sm-pull-4 col-xs-10 col-xs-offset-1">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vulputate et nisl maximus eleifend. Fusce pellentesque laoreet mi, quis tristique risus. Nullam et dignissim est. Aliquam pretium ligula nec orci aliquam varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec faucibus diam non lectus elementum, nec tristique nulla porta. Fusce molestie scelerisque risus, nec interdum libero efficitur eget. Duis eu ornare felis. Proin condimentum faucibus massa a aliquet. Nullam ullamcorper pretium sollicitudin. Aenean ipsum lorem, egestas in consectetur eget, gravida id ipsum. Nulla vehicula ipsum nulla, sit amet egestas magna malesuada id.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vulputate et nisl maximus eleifend. Fusce pellentesque laoreet mi, quis tristique risus. Nullam et dignissim est. Aliquam pretium ligula nec orci aliquam varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec faucibus diam non lectus elementum, nec tristique nulla porta. Fusce molestie scelerisque risus, nec interdum libero efficitur eget. Duis eu ornare felis. Proin condimentum faucibus massa a aliquet. Nullam ullamcorper pretium sollicitudin. Aenean ipsum lorem, egestas in consectetur eget, gravida id ipsum. Nulla vehicula ipsum nulla, sit amet egestas magna malesuada id.</p>
+                </div>
+            </div>
+        </script>
+
+        <script>
+            boneboiler = {
+                'views'       : {},
+                'models'      : {},
+                'collections' : {},
+                'msg'         : {},
+                'err'         : {},
+            }
+
+            boneboiler.config = {
+                'title'       : 'Appleseed Collective',
+                'description' : 'Reducing food waste one tree at a time',
+            }
+
+        </script>
+
+        <script src="/js/jquery-2.1.1.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/underscore-min.js"></script>
+        <script src="/js/backbone-min.js"></script>
+        <script src="/js/view.js"></script>
+        <script src="/js/main.js"></script>
+        
+    </body>
+</html>
