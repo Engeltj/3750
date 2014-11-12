@@ -21,7 +21,7 @@ boneboiler.views.nav = View.extend({
             ];
         } else {
             this.menu = [
-                "<li><a href=\"#\">Login</a></li>"
+                "<li><a href=\"/login\">Login</a></li>"
             ];
         }
         this.render();

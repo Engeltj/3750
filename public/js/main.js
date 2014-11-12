@@ -42,3 +42,11 @@ boneboiler.nav = new boneboiler.views.nav({ el: '#nav' });
 new AppRouter;
 Backbone.history.start({ pushState: true });
 
+$(document).on('click', 'a:not([data-bypass])', function(e){
+    href = $(this).prop('href')
+    root = location.protocol+'//'+location.host+'/'
+    if (root===href.slice(0,root.length)){
+        e.preventDefault();
+        Backbone.history.navigate(href.slice(root.length), true);
+    }
+});
