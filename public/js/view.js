@@ -10,6 +10,15 @@ var View = Backbone.View.extend({
     },
 });
 
+boneboiler.views.nav = View.extend({
+    initialize: function() {
+        this.render();
+    },
+    render: function() {
+        this.$el.html(_.template($('#navTPL').html()));
+    }
+})
+
 boneboiler.views.home = View.extend({
     initialize: function() {
         this.render();

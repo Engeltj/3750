@@ -38,5 +38,7 @@ var AppRouter = Backbone.Router.extend ({
     },
 });
 
+boneboiler.nav = new boneboiler.views.nav({ el: '#nav' });
 new AppRouter;
 Backbone.history.start({ pushState: true });
+
