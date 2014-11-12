@@ -31,7 +31,7 @@ boneboiler.views.nav = View.extend({
 
         this.$el.find("#actions").html(this.menu.join(""))
     }
-})
+});
 
 boneboiler.views.home = View.extend({
     initialize: function() {
@@ -40,4 +40,13 @@ boneboiler.views.home = View.extend({
     render: function() {
         this.$el.html(_.template($('#homeTPL').html()));
     }
+});
+
+boneboiler.views.login = View.extend({
+    initialize: function() {
+        this.render();
+    }, 
+    render: function() {
+        this.$el.html(_.template($('#loginTPL').html()));
+    },
 });
