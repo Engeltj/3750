@@ -20,9 +20,12 @@ boneboiler.views.nav = View.extend({
             this.menu = [
                 "<li><a href=\"/\">Home</a></li>",
                 "<li><a href=\"/events\">Harvesting Events</a></li>",
-                "<li><a href=\"#\">Account</a></li>",
-                "<li><a id=\"logout\" href=\"#\">Logout</a></li>",
+                "<li><a href=\"/account\">Account</a></li>",
             ];
+            if (boneboiler.admin) {
+                this.menu.push("<li><a href=\"/admin\">Admin</a></li>")
+            }
+            this.menu.push("<li><a id=\"logout\" href=\"#\">Logout</a></li>")
         } else {
             this.menu = [
                 "<li><a href=\"/login\">Login</a></li>",
@@ -44,6 +47,7 @@ boneboiler.views.nav = View.extend({
         e.preventDefault();
 
         boneboiler.user = false
+        this.update();
         Backbone.history.navigate("/", true);
     },
 });
@@ -90,5 +94,23 @@ boneboiler.views.events = View.extend({
     }, 
     render: function() {
         this.$el.html(_.template($('#eventTPL').html()));
+    },
+});
+
+boneboiler.views.account = View.extend({
+    initialize: function() {
+        this.render();
+    }, 
+    render: function() {
+        this.$el.html(_.template($('#accountTPL').html()));
+    },
+});
+
+boneboiler.views.admin = View.extend({
+    initialize: function() {
+        this.render();
+    }, 
+    render: function() {
+        this.$el.html(_.template($('#adminTPL').html()));
     },
 });
