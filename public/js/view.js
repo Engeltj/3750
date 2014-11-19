@@ -130,7 +130,7 @@ boneboiler.modals.addEvent = View.extend({
         // Little timeout hack to make sure the modal's HTML is put into the DOM before we try to open it
         setTimeout(function() {
             var modal = _this.$el.find('#addEventModal').modal();
-        }, 50)
+        }, 50);
     }, 
     render: function() {
         this.$el.html(_.template($('#addEventTPL').html()));
@@ -140,7 +140,14 @@ boneboiler.modals.addEvent = View.extend({
         "click #submit": "post",
     },
     cleanup: function(e) {
-        this.$el.find("#addEventModal").remove();
+        var _this = this;
+        e.preventDefault();
+        this.$el.find("#addEventModal").modal('hide');
+
+        // Similar modal hack to make sure we cleanup any modals we generate
+        setTimeout(function() {
+            _this.$el.find('#addEventModal').remove();
+        }, 200);
     },
     post: function(e) {
         console.log("Saving the event goes here");
