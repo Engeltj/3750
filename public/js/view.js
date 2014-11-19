@@ -97,10 +97,14 @@ boneboiler.views.events = View.extend({
     },
     events: {
         "click #donateBtn" : "donate",
+        "click #searchBtn" : "search",
     },
     donate: function(e) {
         new boneboiler.modals.addEvent();
     },
+    search: function(e) {
+        alert('event search goes here');
+    }
 });
 
 boneboiler.views.account = View.extend({
@@ -109,6 +113,12 @@ boneboiler.views.account = View.extend({
     }, 
     render: function() {
         this.$el.html(_.template($('#accountTPL').html()));
+    },
+    events: {
+        "click #saveBtn" : "save",
+    },
+    save: function(e) {
+        alert('Saving account prefs goes here');
     },
 });
 
@@ -150,6 +160,6 @@ boneboiler.modals.addEvent = View.extend({
         }, 200);
     },
     post: function(e) {
-        console.log("Saving the event goes here");
+        alert("Saving the event goes here");
     },
 });

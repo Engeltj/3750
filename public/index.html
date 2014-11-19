@@ -169,8 +169,42 @@
         </script>
 
         <script id="accountTPL" type="text/template">
-            <div class="row">
-                <h1>account</h1>
+            <div class="container">
+                <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+                    <form action="" class="form-horizontal" role="form">
+                            <h3>Email Notification Settings</h3>
+                            <div class="form-group">
+                                <label for="emailPrefs" class="col-sm-3 col-xs-12 control-label">Email Preferences</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    <select name="" id="emailPrefs" class="form-control">
+                                        <option value="">Test</option>
+                                        <option value="">Test</option>
+                                        <option value="">Test</option>
+                                        <option value="">Test</option>
+                                        <option value="">Test</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <h3>Change Password</h3>
+                            <div class="form-group">
+                                <label for="oldPass" class="col-sm-3 col-xs-12 control-label">Old Password</label>
+                                <div class="col-sm-6 col-xs-12"><input type="password" class="form-control" id="oldPass"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPass" class="col-sm-3 col-xs-12 control-label">New Password</label>
+                                <div class="col-sm-6 col-xs-12"><input type="password" class="form-control" id="newPass"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPass" class="col-sm-3 col-xs-12 control-label">Confirm Password</label>
+                                <div class="col-sm-6 col-xs-12"><input type="password" class="form-control" id="confirmPass"></div>
+                            </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-xs-12">
+                                <div class="pull-right"><button id="saveBtn" class="btn btn-primary" type="button">Save Preferences</button></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </script>
 
