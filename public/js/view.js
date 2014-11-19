@@ -37,11 +37,11 @@ boneboiler.views.nav = View.extend({
 
         this.$el.find("#actions").html(this.menu.join(""))
     },
-    events: {
-        "click #logout" : "logout",
-    },
     update: function() {
         this.render();
+    },
+    events: {
+        "click #logout" : "logout",
     },
     logout: function(e) {
         e.preventDefault();
@@ -95,6 +95,12 @@ boneboiler.views.events = View.extend({
     render: function() {
         this.$el.html(_.template($('#eventTPL').html()));
     },
+    events: {
+        "click #donateBtn" : "donate",
+    },
+    donate: function(e) {
+        new boneboiler.modals.addEvent();
+    },
 });
 
 boneboiler.views.account = View.extend({
@@ -112,5 +118,31 @@ boneboiler.views.admin = View.extend({
     }, 
     render: function() {
         this.$el.html(_.template($('#adminTPL').html()));
+    },
+});
+
+boneboiler.modals.addEvent = View.extend({
+    el: "#modals",
+    initialize: function() {
+        var _this = this;
+        this.render();
+
+        // Little timeout hack to make sure the modal's HTML is put into the DOM before we try to open it
+        setTimeout(function() {
+            var modal = _this.$el.find('#addEventModal').modal();
+        }, 50)
+    }, 
+    render: function() {
+        this.$el.html(_.template($('#addEventTPL').html()));
+    },
+    events: {
+        "click .close": "cleanup",
+        "click #submit": "post",
+    },
+    cleanup: function(e) {
+        this.$el.find("#addEventModal").remove();
+    },
+    post: function(e) {
+        console.log("Saving the event goes here");
     },
 });
