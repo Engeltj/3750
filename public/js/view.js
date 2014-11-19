@@ -115,10 +115,10 @@ boneboiler.views.events = View.extend({
 boneboiler.views.eventItem = View.extend({
     el: "#eventList",
     initialize: function(options) {
-        this.render();
+        this.render(options);
     },
-    render: function() {
-        this.$el.append(_.template($("#eventItemTPL").html()));
+    render: function(options) {
+        this.$el.append(_.template($("#eventItemTPL").html(), options));
     }
 })
 
