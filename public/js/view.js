@@ -94,6 +94,11 @@ boneboiler.views.events = View.extend({
     }, 
     render: function() {
         this.$el.html(_.template($('#eventTPL').html()));
+
+        // This needs to be replaced with a real events list
+        for (var i in eventTestData.events) {
+            new boneboiler.views.eventItem(eventTestData.events[i]);
+        }
     },
     events: {
         "click #donateBtn" : "donate",
@@ -106,6 +111,16 @@ boneboiler.views.events = View.extend({
         alert('event search goes here');
     }
 });
+
+boneboiler.views.eventItem = View.extend({
+    el: "#eventList",
+    initialize: function(options) {
+        this.render();
+    },
+    render: function() {
+        this.$el.append(_.template($("#eventItemTPL").html()));
+    }
+})
 
 boneboiler.views.account = View.extend({
     initialize: function() {
@@ -163,3 +178,135 @@ boneboiler.modals.addEvent = View.extend({
         alert("Saving the event goes here");
     },
 });
+
+var eventTestData = {
+    "events": [
+        {
+            "id": 5,
+            "owner": {
+                "id": 4,
+                "firstname": "John",
+                "lastname": "Doe",
+                "email": "john@example.com",
+                "role": "staff",
+                "phone": 9052435432,
+                "locations": [
+                    {
+                        "id": 8,
+                        "description": "Home",
+                        "address1": "41 Old Rd",
+                        "address2": "",
+                        "city": "Guelph",
+                        "postal": "N1G O0O",
+                        "country": "Canada"
+                    }
+                ],
+                "created": "2014-11-14T22:36:14.976Z",
+                "emailEnabled": true,
+                "emailVerified": true
+            },
+            "description": "Come pick my 4 apple trees!",
+            "location": {
+                "id": 8,
+                "description": "Home",
+                "address1": "41 Old Rd",
+                "address2": "",
+                "city": "Guelph",
+                "postal": "N1G O0O",
+                "country": "Canada"
+            },
+            "datetime": "2014-11-18T16:20:27.174Z",
+            "duration": 3600,
+            "status": "pending",
+            "attendees": [],
+            "staffNotes": "John doe did <strong>not</strong> show<br /> Jane did and we got 23 apples. Now in the food bank",
+            "created": "2014-11-14T22:36:14.976Z"
+        },
+        {
+            "id": 6,
+            "owner": {
+                "id": 6,
+                "firstname": "Jane",
+                "lastname": "Doe",
+                "email": "jane@example.com",
+                "role": "staff",
+                "phone": 9052425432,
+                "locations": [
+                    {
+                        "id": 8,
+                        "description": "Home",
+                        "address1": "41 Street Rd",
+                        "address2": "",
+                        "city": "Guelph",
+                        "postal": "N1G O01",
+                        "country": "Canada"
+                    }
+                ],
+                "created": "2014-11-12T22:36:14.976Z",
+                "emailEnabled": true,
+                "emailVerified": true
+            },
+            "description": "Come pick my 4 apple trees!",
+            "location": {
+                "id": 8,
+                "description": "Home",
+                "address1": "41 Street Rd",
+                "address2": "",
+                "city": "Guelph",
+                "postal": "N1G O01",
+                "country": "Canada"
+            },
+            "datetime": "2014-11-20T16:20:27.174Z",
+            "duration": 5400,
+            "status": "approved",
+            "attendees": [
+                {
+                    "id": 4,
+                    "firstname": "John",
+                    "lastname": "Doe",
+                    "email": "john@example.com",
+                    "role": "normal",
+                    "phone": 9052435432,
+                    "locations": [
+                        {
+                            "id": 8,
+                            "description": "Home",
+                            "address1": "41 Old Rd",
+                            "address2": "",
+                            "city": "Guelph",
+                            "postal": "N1G O0O",
+                            "country": "Canada"
+                        }
+                    ],
+                    "created": "2014-11-14T22:36:14.976Z",
+                    "emailEnabled": true,
+                    "emailVerified": true
+                },
+                {
+                    "id": 20,
+                    "firstname": "Jennifer",
+                    "lastname": "Gardner",
+                    "email": "jenn@gardner.com",
+                    "role": "normal",
+                    "phone": 9055435432,
+                    "locations": [
+                        {
+                            "id": 8,
+                            "description": "Home",
+                            "address1": "20 Song Av",
+                            "address2": "",
+                            "city": "Toronto",
+                            "postal": "L7E O0O",
+                            "country": "Canada"
+                        }
+                    ],
+                    "created": "2014-11-14T22:36:14.976Z",
+                    "emailEnabled": true,
+                    "emailVerified": true
+                }
+            ],
+            "staffNotes": "Go through the back entrance",
+            "created": "2014-11-10T22:36:14.976Z"
+        }
+    ]
+};

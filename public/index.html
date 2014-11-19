@@ -148,7 +148,7 @@
         <script id="eventTPL" type="text/template">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6 col-md-6 col-md-offset-2 col-xs-12">
+                    <div class="col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-1 col-xs-12">
                         <div class="form-group">
                             <input type="text" id="searchField" class="form-control" placeholder="Search">
                         </div>
@@ -162,8 +162,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12" id="eventList">
-                    <h1>Event List Goes here</h1>
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1 col-xs-12">
+                        <h3>Upcoming Events</h3>
+                        <div id="eventList"></div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <script id="eventItemTPL" type="text/template">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-sm-6 col-xs-12">
+                            <p>event metadata</p>
+                        </div>
+                        <div class="col-sm-4 col-sm-offset-2 col-xs-12">
+                            <p>attendee list and button</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </script>
