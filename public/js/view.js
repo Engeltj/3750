@@ -28,8 +28,8 @@ boneboiler.views.nav = View.extend({
             this.menu.push("<li><a id=\"logout\" href=\"#\">LOGOUT</a></li>")
         } else {
             this.menu = [
-                "<li><a href=\"/login\">LOGIN</a></li>",
                 "<li><a href=\"/register\">REGISTER</a></li>",
+                "<li><a href=\"/login\">LOGIN</a></li>"
             ];
         }
 
@@ -49,7 +49,7 @@ boneboiler.views.nav = View.extend({
         boneboiler.user = false
         this.update();
         Backbone.history.navigate("/", true);
-    },
+    }
 });
 
 boneboiler.views.home = View.extend({
@@ -68,6 +68,19 @@ boneboiler.views.login = View.extend({
     render: function() {
         this.$el.html(_.template($('#loginTPL').html()));
     },
+    update: function() {
+        this.render();
+    },
+    events: {
+        "click #login_btn" : "login",
+    },
+    login: function(e) {
+        e.preventDefault();
+        console.log('hi')
+        boneboiler.user = true
+        this.update();
+        Backbone.history.navigate("/", true);
+    }
 });
 
 boneboiler.views.register = View.extend({
