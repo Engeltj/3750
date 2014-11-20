@@ -1,7 +1,29 @@
+body {
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	font-size: 1.5em;
+	background-size: cover;
+	background: #3F7551 url('../img/bg.jpg');
+}
+
 .attendance {
     margin-top: 10px;
 }
 
 .event-right {
     margin-top: 15px;
+}
+
+#page {
+	height:100%;
+	width:100%;
+	position:absolute;
+}
+
+#content{
+	background-color: #F8F5DA;
+	width:85%;
+	max-width:1500px;
+	min-width:800px;
+	min-height:500px;
+	padding: 3em 0em 6em 0em;
 }

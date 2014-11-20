@@ -10,6 +10,7 @@
         <meta http-equiv="cache-control" content="no-cache" />
         <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
         <link type="text/css" rel="stylesheet" href="/css/main.css">
+        <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Tangerine">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -18,6 +19,7 @@
         <![endif]-->
     </head>
     <body>
+    	<div class="background"></div>
         <!--[if IE]>
         <div class="container">
             <div id="terribleBrowser" class="alert alert-danger">
@@ -56,11 +58,12 @@
         <script type="text/template" id="homeTPL">
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-0 col-sm-push-7 col-xs-10 col-xs-offset-1">
-                    <img src="http://placehold.it/490x300" class="img-responsive" alt="Placeholder">
+                    <img src="img/Harvest-300x200.jpg" style="width:490px" class="img-responsive" alt="Placeholder">
                 </div>
                 <div class="col-sm-6 col-sm-offset-1 col-sm-pull-4 col-xs-10 col-xs-offset-1">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vulputate et nisl maximus eleifend. Fusce pellentesque laoreet mi, quis tristique risus. Nullam et dignissim est. Aliquam pretium ligula nec orci aliquam varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec faucibus diam non lectus elementum, nec tristique nulla porta. Fusce molestie scelerisque risus, nec interdum libero efficitur eget. Duis eu ornare felis. Proin condimentum faucibus massa a aliquet. Nullam ullamcorper pretium sollicitudin. Aenean ipsum lorem, egestas in consectetur eget, gravida id ipsum. Nulla vehicula ipsum nulla, sit amet egestas magna malesuada id.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vulputate et nisl maximus eleifend. Fusce pellentesque laoreet mi, quis tristique risus. Nullam et dignissim est. Aliquam pretium ligula nec orci aliquam varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec faucibus diam non lectus elementum, nec tristique nulla porta. Fusce molestie scelerisque risus, nec interdum libero efficitur eget. Duis eu ornare felis. Proin condimentum faucibus massa a aliquet. Nullam ullamcorper pretium sollicitudin. Aenean ipsum lorem, egestas in consectetur eget, gravida id ipsum. Nulla vehicula ipsum nulla, sit amet egestas magna malesuada id.</p>
+                    <p>Appleseed Collective Revival builds from previous efforts to reconnect our urban food network and make use of the abundant food sources in our own community.  The Appleseed Collective is a Working Group of Transition Guelph, picking un-used fruit and nuts from privately owned fruit trees and bushes, mostly in and around the city of Guelph.</p>
+                    <p>What is new about the Appleseed Collective Revival is that it is a Social Enterprise - that means, along with our community values, and prioritizing the collection of organically-produced fruit and veg, we are attempting to generate revenue that will support and sustain our activities.</p>
+                    <p>The Appleseed Collective Revival is also looking to expand our database of trees, volunteers, and recipient organizations.  We are looking for members of the public with fruit or nut trees - or vegetables - that could be harvested and / or processed.</p>
                 </div>
             </div>
         </script>
@@ -148,19 +151,17 @@
         <script id="eventTPL" type="text/template">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-1 col-xs-12">
-                        <div class="form-group">
-                            <input type="text" id="searchField" class="form-control" placeholder="Search">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-sm-offset-0 col-md-4 col-md-offset-0 col-xs-8 col-xs-offset-2">
-                        <div class="col-sm-6 col-xs-12">
-                            <p><button id="searchBtn" type="button" class="btn btn-primary btn-block">Search</button></p>
-                        </div>
-                        <div class="col-sm-6 col-xs-12">
-                            <p><button id="donateBtn" type="button" class="btn btn-primary btn-block">Donate Tree</button></p>
-                        </div>
-                    </div>
+                	<div class="col-sm-10 col-sm-offset-1 col-xs-12">
+	                	<div class="col-sm-6">
+	                    	<input type="text" id="searchField" class="form-control" placeholder="Search">
+	                    </div>
+	                    <div class="col-sm-2">
+	                    	<button id="searchBtn" type="button" class="btn btn-primary btn-block">Search</button>
+	                    </div>
+	                    <div class="col-sm-3 col-sm-offset-1">
+	                        <button id="donateBtn" type="button" class="btn btn-success btn-block">Create a Harvesting Event</button>
+	                    </div>
+	                </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 col-xs-12">

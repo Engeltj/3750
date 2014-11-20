@@ -18,18 +18,18 @@ boneboiler.views.nav = View.extend({
         // Logged in
         if (boneboiler.user) {
             this.menu = [
-                "<li><a href=\"/\">Home</a></li>",
-                "<li><a href=\"/events\">Harvesting Events</a></li>",
-                "<li><a href=\"/account\">Account</a></li>",
+                "<li><a href=\"/\">HOME</a></li>",
+                "<li><a href=\"/events\">HARVESTING EVENTS</a></li>",
+                "<li><a href=\"/account\">ACCOUNT</a></li>",
             ];
             if (boneboiler.admin) {
-                this.menu.push("<li><a href=\"/admin\">Admin</a></li>")
+                this.menu.push("<li><a href=\"/admin\">ADMIN</a></li>")
             }
-            this.menu.push("<li><a id=\"logout\" href=\"#\">Logout</a></li>")
+            this.menu.push("<li><a id=\"logout\" href=\"#\">LOGOUT</a></li>")
         } else {
             this.menu = [
-                "<li><a href=\"/login\">Login</a></li>",
-                "<li><a href=\"/register\">Register</a></li>",
+                "<li><a href=\"/login\">LOGIN</a></li>",
+                "<li><a href=\"/register\">REGISTER</a></li>",
             ];
         }
 
