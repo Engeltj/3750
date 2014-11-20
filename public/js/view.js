@@ -117,9 +117,7 @@ boneboiler.views.eventItem = View.extend({
         this.render(options);
     },
     render: function(options) {
-        console.log(options)
-        console.log(new Date(options.datetime).toTimeString().split(':'))
-        console.log(new Date(options.datetime).toDateString())
+        // Need to change the button depending on event state
         var html = _.template($("#eventItemTPL").html())({ data: options });
         this.$el.append(html);
     },
@@ -127,7 +125,7 @@ boneboiler.views.eventItem = View.extend({
         "click #join" : "join",
     },
     join: function(e) {
-        alert("You clicked a button")
+        alert(this.$el.find("p.text-right.hidden-xs").text())
     },
 })
 
@@ -316,6 +314,64 @@ var eventTestData = {
             ],
             "staffNotes": "Go through the back entrance",
             "created": "2014-11-10T22:36:14.976Z"
+        }
+    ]
+};
+
+var usersTestData = {
+    "users": [
+        {  
+            "id": 1,
+            "firstname": "John",
+            "lastname": "Doe",
+            "email": "john@example.com",
+            "role": "staff",
+            "phone": 9052435432,
+            "locations": [
+                {
+                    "id": 5,
+                    "description": "Home",
+                    "address1": "41 Old Rd",
+                    "address2": "",
+                    "city": "Guelph",
+                    "postal": "N1G O0O",
+                    "country": "Canada"
+                }
+            ],
+            "created": "2014-11-14T22:36:12.976Z",
+            "emailEnabled": true,
+            "emailVerified": true
+        },
+        {  
+            "id": 2,
+            "firstname": "Jane",
+            "lastname": "Doe",
+            "email": "Jane@example.com",
+            "role": "normal",
+            "phone": 9055432243,
+            "locations": [
+                {
+                    "id": 6,
+                    "description", "Home"
+                    "address1": "Unit 40",
+                    "address2": "3 Fake Rd",
+                    "city": "Guelph",
+                    "postal": "N1G O0O",
+                    "country": "Canada"
+                },
+                {  
+                    "id": 7,
+                    "description": "Ochard",
+                    "address1": "3 Real Rd",
+                    "address2": "",
+                    "city": "Guelph",
+                    "postal": "N1G O0O",
+                    "country": "Canada"
+                }
+            ],
+            "created": "2014-11-14T22:36:14.976Z",
+            "emailEnabled": true,
+            "emailVerified": true
         }
     ]
 };
