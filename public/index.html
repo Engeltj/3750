@@ -178,21 +178,34 @@
                         <div class="col-sm-6 col-xs-12">
                             <ul class="list-unstyled">
                                 <li>
-                                    <strong>Location: </strong> test
+                                    <strong>Location: </strong> 
+                                    <%  
+                                        var location = data.location;
+                                        print(location.address1 + ', ' + location.address2 + ' ' + location.city + ' ' + location.postal)
+                                    %>
                                 </li>
                                 <li>
-                                    <strong>Trees: </strong> test
+                                    <strong>Trees: </strong> <%= data.description %>
                                 </li>
                                 <li>
-                                    <strong>Time: </strong> test
+                                    <strong>Time: </strong>
+                                    <%
+                                        var datetime = new Date(data.datetime);
+                                        var time = datetime.toTimeString().split(':');
+                                        print(datetime.toDateString() + ' @ ' + time[0] + ':' + time[1]);
+                                    %>
                                 </li>
                             </ul>   
                         </div>
-                        <div class="col-sm-6 col-xs-12">
-                            <div class="col-md-7 col-sm-6 col-sm-offset-1 col-xs-8">
-                                <p class="text-right">6 people going</p>
+                        <div class="col-sm-6 col-xs-12 event-right">
+                            <div class="col-md-7 col-sm-6 col-sm-offset-1 col-xs-8 attendance">
+                                <% var attendees = data.attendees ? data.attendees.length : 0; %>
+                                <p class="visible-xs"><% print(attendees + ' ' + (attendees == 1 ? 'person' : 'people')) %> going</p>
+                                <p class="text-right hidden-xs"><% print(attendees + ' ' + (attendees == 1 ? 'person' : 'people')) %> going</p>
                             </div>
-                            <div class="col-md-4 col-sm-5 col-xs-4"><button class="btn btn-lg btn-block btn-primary" id="join" type="button">Join</button></div>
+                            <div class="col-md-4 col-sm-5 col-xs-4">
+                                <button class="btn btn-lg btn-block btn-primary" id="join" type="button">Join</button>
+                            </div>
                         </div>
                     </div>
                 </div>

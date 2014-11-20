@@ -97,7 +97,7 @@ boneboiler.views.events = View.extend({
 
         // This needs to be replaced with a real events list
         for (var i in eventTestData.events) {
-            new boneboiler.views.eventItem(eventTestData.events[i]);
+            this.$el.find("#eventList").append(new boneboiler.views.eventItem(eventTestData.events[i]).el);
         }
     },
     events: {
@@ -113,13 +113,22 @@ boneboiler.views.events = View.extend({
 });
 
 boneboiler.views.eventItem = View.extend({
-    el: "#eventList",
     initialize: function(options) {
         this.render(options);
     },
     render: function(options) {
-        this.$el.append(_.template($("#eventItemTPL").html(), options));
-    }
+        console.log(options)
+        console.log(new Date(options.datetime).toTimeString().split(':'))
+        console.log(new Date(options.datetime).toDateString())
+        var html = _.template($("#eventItemTPL").html())({ data: options });
+        this.$el.append(html);
+    },
+    events: {
+        "click #join" : "join",
+    },
+    join: function(e) {
+        alert("You clicked a button")
+    },
 })
 
 boneboiler.views.account = View.extend({
