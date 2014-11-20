@@ -352,7 +352,7 @@ var usersTestData = {
             "locations": [
                 {
                     "id": 6,
-                    "description", "Home"
+                    "description": "Home",
                     "address1": "Unit 40",
                     "address2": "3 Fake Rd",
                     "city": "Guelph",

@@ -1,8 +1,8 @@
 body {
 	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 	font-size: 1.5em;
-	background-size: cover;
-	background: #3F7551 url('../img/bg.jpg');
+	background: #3F7551 url('../img/bg.jpg') no-repeat;
+	background-size: 100%;
 }
 
 .attendance {
