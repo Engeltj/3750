@@ -78,6 +78,7 @@ boneboiler.views.login = View.extend({
         e.preventDefault();
         console.log('hi')
         boneboiler.user = true
+        boneboiler.admin = true
         this.update();
         Backbone.history.navigate("/", true);
     }
@@ -163,8 +164,24 @@ boneboiler.views.admin = View.extend({
     }, 
     render: function() {
         this.$el.html(_.template($('#adminTPL').html()));
+
+        // This needs to be replaced with a real events list
+        for (var i in usersTestData.users) {
+            this.$el.find("#userList").append(new boneboiler.views.userItem(usersTestData.users[i]).el);
+        }
     },
 });
+
+boneboiler.views.userItem = View.extend({
+    initialize: function(options) {
+        this.render(options);
+    },
+    render: function(options) {
+        // Need to change the button depending on event state
+        var html = _.template($("#userItemTPL").html())({ data: options });
+        this.$el.append(html);
+    },
+})
 
 boneboiler.modals.addEvent = View.extend({
     el: "#modals",

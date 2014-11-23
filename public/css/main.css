@@ -26,6 +26,24 @@ body {
 	overflow: scroll;
 }
 
+#userList {
+	margin-top: 25px;
+}
+
+.user-name {
+	margin: 10px 0 10px;
+}
+
+#emailPrefs {
+	margin-top: 3px;
+}
+
+@media (min-width: 768px) {
+	.admin-title {
+		margin-top: 4px;
+	}
+}
+
 @media (max-width: 768px) {
 	#searchField,
 	#searchBtn,
