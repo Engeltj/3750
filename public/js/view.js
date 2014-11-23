@@ -209,8 +209,11 @@ boneboiler.views.userItem = View.extend({
         this.$el.find('select#emailPrefs').val((this.$el.find('select#emailPrefs').val() == 'normal') ? 'staff' : 'normal')
     },
     changeRole: function(e) {
-        // Actually upload
+        // Actually upload the change
         console.log(this.$el.find('select#emailPrefs').val())
+
+        this.$el.find('select#emailPrefs').parent().addClass('col-xs-12').removeClass('col-xs-6 col-sm-5')
+        this.$el.find('.confirmation-btns').css('display', 'none')
     }
 })
 
