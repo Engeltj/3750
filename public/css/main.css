@@ -16,17 +16,20 @@ body {
     margin-top: 15px;
 }
 
-#page {
-	height:100%;
-	width:100%;
-	position:absolute;
+#content>div.container{
+	background-color: #F8F5DA;
+	padding: 3em 0em 3em 0em;
 }
 
-#content{
-	background-color: #F8F5DA;
-	width:85%;
-	max-width:1500px;
-	min-width:800px;
-	min-height:500px;
-	padding: 3em 0em 6em 0em;
+#treeDescription {
+	resize: none;
+	overflow: scroll;
+}
+
+@media (max-width: 768px) {
+	#searchField,
+	#searchBtn,
+	#donateBtn {
+		margin-bottom: 15px;
+	}
 }
