@@ -203,15 +203,15 @@ boneboiler.views.userItem = View.extend({
         this.$el.find('.confirmation-btns').css('display', 'block')
     },
     roleChangeCancel: function(e) {
-        this.$el.find('select#emailPrefs').parent().addClass('col-xs-12').removeClass('col-xs-6 col-sm-5')
-        this.$el.find('.confirmation-btns').css('display', 'none')
-
+        this.hideConfirm()
         this.$el.find('select#emailPrefs').val((this.$el.find('select#emailPrefs').val() == 'normal') ? 'staff' : 'normal')
     },
     changeRole: function(e) {
         // Actually upload the change
         console.log(this.$el.find('select#emailPrefs').val())
-
+        this.hideConfirm()
+    },
+    hideConfirm: function() {
         this.$el.find('select#emailPrefs').parent().addClass('col-xs-12').removeClass('col-xs-6 col-sm-5')
         this.$el.find('.confirmation-btns').css('display', 'none')
     }
