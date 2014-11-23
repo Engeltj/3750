@@ -117,12 +117,24 @@ boneboiler.views.events = View.extend({
     events: {
         "click #donateBtn" : "donate",
         "click #searchBtn" : "search",
+        "keyup #searchField" : "search"
     },
     donate: function(e) {
         new boneboiler.modals.addEvent();
     },
     search: function(e) {
-        alert('event search goes here');
+        entries = $('#eventList').children();
+        filter_tokens = $('#searchField')[0].value.split(" "); //tokenize the search field data
+        entries.show(); //show all entries
+
+        for (i=0;i<filter_tokens.length;i++){ //loop through each keyword in search field
+            filter_tokens[i] = filter_tokens[i].toUpperCase(); //for case insensitivity
+            entries.filter(function() {
+                return ($(this).text().toUpperCase().indexOf(filter_tokens[i]) == -1) //if keyword not found, we hide
+            }).hide();
+
+            //entries.filter(":not(:contains('"+filter_tokens[i]+"'))").hide() // case sensitive approach
+        }
     }
 });
 
