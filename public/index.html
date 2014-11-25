@@ -112,16 +112,28 @@
                                         <h3 class="text-muted">Register</h3>
                                     </div>
                                     <div class="form-group">
-                                        <label for="emailInput">Email</label>
-                                        <input type="email" class="form-control input-lg" id="emailInput" placeholder="Enter email">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control input-lg" id="email" placeholder="Enter email">
                                     </div>
                                     <div class="form-group">
-                                        <label for="passwordInput">Password</label>
-                                        <input type="password" class="form-control input-lg" id="passwordInput" placeholder="Password">
+                                        <label for="firstname">First Name</label>
+                                        <input type="text" class="form-control input-lg" id="firstname" placeholder="First Name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="passwordConfirmInput">Confirm Password</label>
-                                        <input type="password" class="form-control input-lg" id="passwordConfirmInput" placeholder="Confirm password">
+                                        <label for="lastname">Last Name</label>
+                                        <input type="text" class="form-control input-lg" id="lastname" placeholder="Last Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input type="tel" class="form-control input-lg" id="phone" placeholder="Phone #">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="passwordHash">Password</label>
+                                        <input type="password" class="form-control input-lg" id="passwordHash" placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="passwordConfirm">Confirm Password</label>
+                                        <input type="password" class="form-control input-lg" id="passwordConfirm" placeholder="Confirm password">
                                     </div>
                                     <button class="btn btn-primary" type="submit">Login</button>
                                 </form>
@@ -358,10 +370,8 @@
             boneboiler.config = {
                 'title'       : 'Appleseed Collective',
                 'description' : 'Reducing food waste one tree at a time',
+                'API'         : 'http://localhost:3000'
             }
-
-            boneboiler.user = true;
-            boneboiler.admin = true;
         </script>
 
         <script src="/js/jquery-2.1.1.min.js"></script>

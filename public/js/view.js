@@ -91,6 +91,67 @@ boneboiler.views.register = View.extend({
     render: function() {
         this.$el.html(_.template($('#registerTPL').html()));
     },
+    events: {
+        'click button[type="submit"]' : 'register',
+    },
+    register: function(e) {
+        // Don't let the form submit
+        e.preventDefault();
+
+        // Defaults
+        var valid = true, 
+            data = { 
+                    'user': {
+                            'emailEnabled' : false,
+                            'company'      : '',
+                            'userNotes'    : '',
+                            'roles'        : ['normal'],
+                            'locations'    : [],
+                        }
+                    };
+
+        // Make sure each form field has a value
+        _.each(this.$el.find('input'), function(elem, i) {
+            if ($(elem).val() == '') {
+                $(elem).parent().addClass('has-error');
+                valid = false;
+            } else {
+                $(elem).parent().addClass('has-success');
+                if ($(elem).attr('id') != 'passwordConfirm') data.user[$(elem).attr('id')] = $(elem).val();
+            }
+        });
+
+        // Let the user know they screwed up
+        if (!valid) {
+            alert('Fields are missing values!');
+        // Password check
+        } else if (valid && this.$el.find('#passwordHash').val() != this.$el.find('#passwordConfirm').val()) {
+            this.$el.find('#passwordHash').parent().addClass('has-error');
+            this.$el.find('#passwordConfirm').parent().addClass('has-error');
+            alert('Passwords don\'t match!');
+        } else {
+            // Send the data!
+            console.log(data);
+
+            $.ajax({
+                url: boneboiler.config.API + '/users',
+                type: 'POST',
+                crossDomain: true,
+                data: data,
+                processData: false,
+                contentType: 'application/json',
+                success: function(res) {
+                    console.log(res)
+                },
+                error: function(res) {
+                    console.log(res)
+                },
+            })
+            // $.post(boneboiler.config.API + '/users', data, function(data) {
+            //     console.log(data)
+            // })
+        }
+    }
 });
 
 boneboiler.views.forgot = View.extend({
