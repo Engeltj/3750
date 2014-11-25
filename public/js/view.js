@@ -137,7 +137,7 @@ boneboiler.views.register = View.extend({
                 url: boneboiler.config.API + '/users',
                 type: 'POST',
                 crossDomain: true,
-                data: data,
+                data: JSON.stringify(data),
                 processData: false,
                 contentType: 'application/json',
                 success: function(res) {
@@ -147,9 +147,6 @@ boneboiler.views.register = View.extend({
                     console.log(res)
                 },
             })
-            // $.post(boneboiler.config.API + '/users', data, function(data) {
-            //     console.log(data)
-            // })
         }
     }
 });
