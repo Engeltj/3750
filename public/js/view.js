@@ -285,7 +285,6 @@ boneboiler.views.admin = View.extend({
                 xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
             },
             success: function(res) {
-                console.log(res)
                 _this.render(res);
             },
             error: function(res) {
@@ -323,15 +322,15 @@ boneboiler.views.userItem = View.extend({
         this.$el.find('.confirmation-btns').css('display', 'block')
     },
     roleChangeCancel: function(e) {
-        this.hideConfirm()
+        this.hideConfirms()
         this.$el.find('select#emailPrefs').val((this.$el.find('select#emailPrefs').val() == 'normal') ? 'staff' : 'normal')
     },
     changeRole: function(e) {
         // Actually upload the change
         console.log(this.$el.find('select#emailPrefs').val())
-        this.hideConfirm()
+        this.hideConfirms()
     },
-    hideConfirm: function() {
+    hideConfirms: function() {
         this.$el.find('select#emailPrefs').parent().addClass('col-xs-12').removeClass('col-xs-6 col-sm-5')
         this.$el.find('.confirmation-btns').css('display', 'none')
     }
