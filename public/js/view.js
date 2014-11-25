@@ -46,9 +46,23 @@ boneboiler.views.nav = View.extend({
     logout: function(e) {
         e.preventDefault();
 
-        boneboiler.user = false
-        this.update();
-        Backbone.history.navigate("/", true);
+        $.ajax({
+            url: boneboiler.config.API + '/users/current/logout',
+            type: 'POST',
+            crossDomain: true,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                boneboiler.user = null;
+                DB.remove('token');
+                boneboiler.nav.update();
+                Backbone.history.navigate("/", true);                
+            },
+            error: function(res) {
+                console.log(res)
+            },
+        })
     }
 });
 
@@ -171,6 +185,7 @@ boneboiler.views.register = View.extend({
                 contentType: 'application/json',
                 success: function(res) {
                     console.log(res)
+                    Backbone.history.navigate("/login", true);
                 },
                 error: function(res) {
                     console.log(res)
