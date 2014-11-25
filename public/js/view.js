@@ -275,14 +275,32 @@ boneboiler.views.account = View.extend({
 
 boneboiler.views.admin = View.extend({
     initialize: function() {
-        this.render();
+        var users,
+            _this = this;
+
+        $.ajax({
+            url: boneboiler.config.API + '/users',
+            type: 'GET',
+            crossDomain: true,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                console.log(res)
+                _this.render(res);
+            },
+            error: function(res) {
+                console.log(res)
+                alert(res.responseJSON.message)
+            },
+        })
     }, 
-    render: function() {
+    render: function(data) {
         this.$el.html(_.template($('#adminTPL').html()));
 
         // This needs to be replaced with a real events list
-        for (var i in usersTestData.users) {
-            this.$el.find("#userList").append(new boneboiler.views.userItem(usersTestData.users[i]).el);
+        for (var i in data.users) {
+            this.$el.find("#userList").append(new boneboiler.views.userItem(data.users[i]).el);
         }
     },
 });
@@ -481,64 +499,6 @@ var eventTestData = {
             ],
             "staffNotes": "Go through the back entrance",
             "created": "2014-11-10T22:36:14.976Z"
-        }
-    ]
-};
-
-var usersTestData = {
-    "users": [
-        {  
-            "id": 1,
-            "firstname": "John",
-            "lastname": "Doe",
-            "email": "john@example.com",
-            "role": "staff",
-            "phone": 9052435432,
-            "locations": [
-                {
-                    "id": 5,
-                    "description": "Home",
-                    "address1": "41 Old Rd",
-                    "address2": "",
-                    "city": "Guelph",
-                    "postal": "N1G O0O",
-                    "country": "Canada"
-                }
-            ],
-            "created": "2014-11-14T22:36:12.976Z",
-            "emailEnabled": true,
-            "emailVerified": true
-        },
-        {  
-            "id": 2,
-            "firstname": "Jane",
-            "lastname": "Doe",
-            "email": "Jane@example.com",
-            "role": "normal",
-            "phone": 9055432243,
-            "locations": [
-                {
-                    "id": 6,
-                    "description": "Home",
-                    "address1": "Unit 40",
-                    "address2": "3 Fake Rd",
-                    "city": "Guelph",
-                    "postal": "N1G O0O",
-                    "country": "Canada"
-                },
-                {  
-                    "id": 7,
-                    "description": "Ochard",
-                    "address1": "3 Real Rd",
-                    "address2": "",
-                    "city": "Guelph",
-                    "postal": "N1G O0O",
-                    "country": "Canada"
-                }
-            ],
-            "created": "2014-11-14T22:36:14.976Z",
-            "emailEnabled": true,
-            "emailVerified": true
         }
     ]
 };

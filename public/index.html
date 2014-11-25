@@ -305,8 +305,8 @@
                         <div class="col-md-4 col-md-offset-4 col-sm-6 col-xs-12">
                             <div class="col-xs-12">
                                 <select name="" id="emailPrefs" class="form-control">
-                                    <option <% if(data.role == "normal") print("selected") %> value="normal">Normal</option>
-                                    <option <% if(data.role == "staff") print("selected") %> value="staff">Staff</option>
+                                    <option <% if(data.roles[0] == "normal") print("selected") %> value="normal">Normal</option>
+                                    <option <% if(data.roles[0] == "staff") print("selected") %> value="staff">Staff</option>
                                 </select>
                             </div>
                             <div class="confirmation-btns" style="display:none;">
