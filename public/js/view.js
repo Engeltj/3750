@@ -22,7 +22,7 @@ boneboiler.views.nav = View.extend({
                 "<li><a href=\"/events\">HARVESTING EVENTS</a></li>",
                 "<li><a href=\"/account\">ACCOUNT</a></li>",
             ];
-            if (boneboiler.admin) {
+            if ($.inArray("staff", boneboiler.user.roles) != -1) {
                 this.menu.push("<li><a href=\"/admin\">ADMIN</a></li>")
             }
             this.menu.push("<li><a id=\"logout\" href=\"#\">LOGOUT</a></li>")
