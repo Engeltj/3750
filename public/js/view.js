@@ -275,8 +275,7 @@ boneboiler.views.account = View.extend({
 
 boneboiler.views.admin = View.extend({
     initialize: function() {
-        var users,
-            _this = this;
+        var _this = this;
 
         $.ajax({
             url: boneboiler.config.API + '/users',
