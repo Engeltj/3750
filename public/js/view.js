@@ -68,19 +68,49 @@ boneboiler.views.login = View.extend({
     render: function() {
         this.$el.html(_.template($('#loginTPL').html()));
     },
-    update: function() {
-        this.render();
-    },
     events: {
         "click #login_btn" : "login",
     },
     login: function(e) {
         e.preventDefault();
-        console.log('hi')
-        boneboiler.user = true
-        boneboiler.admin = true
-        this.update();
-        Backbone.history.navigate("/", true);
+        
+        var valid = true, 
+            data = {};
+
+        // Make sure each form field has a value
+        _.each(this.$el.find('input'), function(elem, i) {
+            if ($(elem).val() == '') {
+                $(elem).parent().addClass('has-error');
+                valid = false;
+            } else {
+                data[$(elem).attr('id')] = $(elem).val();
+            }
+        });
+
+                // Let the user know they screwed up
+        if (!valid) {
+            alert('Fields are missing values!');
+        } else {
+            console.log(data);
+
+            $.ajax({
+                url: boneboiler.config.API + '/users/authenticate',
+                type: 'POST',
+                crossDomain: true,
+                data: JSON.stringify(data),
+                processData: false,
+                contentType: 'application/json',
+                success: function(res) {
+                    boneboiler.user = res.user;
+                    DB.write('token', res.token);
+                    Backbone.history.navigate("/", true);
+                },
+                error: function(res) {
+                    console.log(res)
+                    alert(res.responseJSON.message)
+                },
+            })
+        }
     }
 });
 
@@ -116,7 +146,6 @@ boneboiler.views.register = View.extend({
                 $(elem).parent().addClass('has-error');
                 valid = false;
             } else {
-                $(elem).parent().addClass('has-success');
                 if ($(elem).attr('id') != 'passwordConfirm') data.user[$(elem).attr('id')] = $(elem).val();
             }
         });
@@ -145,6 +174,7 @@ boneboiler.views.register = View.extend({
                 },
                 error: function(res) {
                     console.log(res)
+                    alert(res.responseJSON.message)
                 },
             })
         }

@@ -47,6 +47,24 @@ boneboiler.nav = new boneboiler.views.nav({ el: '#nav' });
 new AppRouter;
 Backbone.history.start({ pushState: true });
 
+if (DB.read('token')) {
+    $.ajax({
+        url: boneboiler.config.API + '/users/current',
+        type: 'GET',
+        crossDomain: true,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+        },
+        success: function(res) {
+            boneboiler.user = res.user;
+            boneboiler.nav.update();
+        },
+        error: function(res) {
+            console.log(res)
+        },
+    })
+}
+
 $(document).on('click', 'a:not([data-bypass])', function(e){
     href = $(this).prop('href')
     root = location.protocol+'//'+location.host+'/'
