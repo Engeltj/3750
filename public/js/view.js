@@ -229,8 +229,11 @@ boneboiler.views.events = View.extend({
 
         // This needs to be replaced with a real events list
         for (var i in data.events) {
-            this.$el.find("#eventList").append(new boneboiler.views.eventItem(data.events[i]).el);
+            this.$el.find("#eventList").append(new boneboiler.views.eventItem({ 'data' : data.events[i], 'parent': this }).el);
         }
+    },
+    update: function() {
+        this.initialize();
     },
     events: {
         "click #donateBtn" : "donate",
@@ -258,12 +261,14 @@ boneboiler.views.events = View.extend({
 
 boneboiler.views.eventItem = View.extend({
     className: "row",
+    parent: null,
     initialize: function(options) {
-        this.render(options);
+        this.$el.attr('id', options.data.id);
+        this.parent = options.parent;
+        this.render(options.data);
     },
     render: function(options) {
         // Need to change the button depending on event state
-        console.log(options)
         var html = _.template($("#eventItemTPL").html())({ data: options });
         this.$el.append(html);
     },
@@ -274,6 +279,7 @@ boneboiler.views.eventItem = View.extend({
         "click #cancel" : "cancel",
     },
     join: function(e) {
+        var _this = this;
         $.ajax({
             url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/attend',
             type: 'POST',
@@ -282,7 +288,7 @@ boneboiler.views.eventItem = View.extend({
                 xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
             },
             success: function(res) {
-                Backbone.history.navigate("/events", true);                
+                _this.parent.update();
             },
             error: function(res) {
                 console.log(res)
@@ -291,6 +297,7 @@ boneboiler.views.eventItem = View.extend({
         })
     },
     approve: function(e) {
+        var _this = this;
         $.ajax({
             url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/accept',
             type: 'POST',
@@ -299,7 +306,7 @@ boneboiler.views.eventItem = View.extend({
                 xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
             },
             success: function(res) {
-                Backbone.history.navigate("/events", true);                
+                _this.parent.update();
             },
             error: function(res) {
                 console.log(res)
@@ -308,6 +315,7 @@ boneboiler.views.eventItem = View.extend({
         })
     },
     unattend: function(e) {
+        var _this = this;
         $.ajax({
             url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/notattend',
             type: 'POST',
@@ -316,7 +324,7 @@ boneboiler.views.eventItem = View.extend({
                 xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
             },
             success: function(res) {
-                Backbone.history.navigate("/events", true);                
+                _this.parent.update();
             },
             error: function(res) {
                 console.log(res)
@@ -325,6 +333,7 @@ boneboiler.views.eventItem = View.extend({
         })
     },
     cancel: function(e) {
+        var _this = this;
         $.ajax({
             url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/cancel',
             type: 'POST',
@@ -333,7 +342,7 @@ boneboiler.views.eventItem = View.extend({
                 xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
             },
             success: function(res) {
-                Backbone.history.navigate("/events", true);                
+                _this.parent.update();
             },
             error: function(res) {
                 console.log(res)
