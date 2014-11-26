@@ -228,10 +228,16 @@ boneboiler.views.events = View.extend({
     render: function(data) {
         this.$el.html(_.template($('#eventTPL').html()));
 
-        // This needs to be replaced with a real events list
-        for (var i in data.events) {
-            this.$el.find("#eventList").append(new boneboiler.views.eventItem(data.events[i]).el);
+        if (data.events.length > 0) {
+            for (var i in data.events) {
+                this.$el.find("#eventList").append(new boneboiler.views.eventItem({ 'data' : data.events[i], 'parent': this }).el);
+            }
+        } else {
+            this.$el.find("#eventList").html('<h4 class="text-center">No events right now</p>');
         }
+    },
+    update: function() {
+        this.initialize();
     },
     events: {
         "click #donateBtn" : "donate",
@@ -258,8 +264,12 @@ boneboiler.views.events = View.extend({
 });
 
 boneboiler.views.eventItem = View.extend({
+    className: "row",
+    parent: null,
     initialize: function(options) {
-        this.render(options);
+        this.$el.attr('id', options.data.id);
+        this.parent = options.parent;
+        this.render(options.data);
     },
     render: function(options) {
         // Need to change the button depending on event state
@@ -268,9 +278,81 @@ boneboiler.views.eventItem = View.extend({
     },
     events: {
         "click #join" : "join",
+        "click #approve" : "approve",
+        "click #unattend" : "unattend",
+        "click #cancel" : "cancel",
     },
     join: function(e) {
-        alert(this.$el.find("p.text-right.hidden-xs").text())
+        var _this = this;
+        $.ajax({
+            url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/attend',
+            type: 'POST',
+            crossDomain: true,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                _this.parent.update();
+            },
+            error: function(res) {
+                console.log(res)
+                alert(res.responseJSON.message)
+            },
+        })
+    },
+    approve: function(e) {
+        var _this = this;
+        $.ajax({
+            url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/accept',
+            type: 'POST',
+            crossDomain: true,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                _this.parent.update();
+            },
+            error: function(res) {
+                console.log(res)
+                alert(res.responseJSON.message)
+            },
+        })
+    },
+    unattend: function(e) {
+        var _this = this;
+        $.ajax({
+            url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/notattend',
+            type: 'POST',
+            crossDomain: true,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                _this.parent.update();
+            },
+            error: function(res) {
+                console.log(res)
+                alert(res.responseJSON.message)
+            },
+        })
+    },
+    cancel: function(e) {
+        var _this = this;
+        $.ajax({
+            url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/cancel',
+            type: 'POST',
+            crossDomain: true,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                _this.parent.update();
+            },
+            error: function(res) {
+                console.log(res)
+                alert(res.responseJSON.message)
+            },
+        })
     },
 })
 
