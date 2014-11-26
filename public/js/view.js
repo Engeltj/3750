@@ -177,8 +177,6 @@ boneboiler.views.register = View.extend({
             alert('Passwords don\'t match!');
         } else {
             // Send the data!
-            console.log(data);
-
             $.ajax({
                 url: boneboiler.config.API + '/users',
                 type: 'POST',
@@ -187,7 +185,6 @@ boneboiler.views.register = View.extend({
                 processData: false,
                 contentType: 'application/json',
                 success: function(res) {
-                    console.log(res)
                     Backbone.history.navigate("/login", true);
                 },
                 error: function(res) {
@@ -223,7 +220,6 @@ boneboiler.views.events = View.extend({
                 xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
             },
             success: function(res) {
-                console.log(res);
                 _this.render(res);
             },
             error: function(res) {
