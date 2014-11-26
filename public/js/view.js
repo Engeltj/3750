@@ -227,9 +227,12 @@ boneboiler.views.events = View.extend({
     render: function(data) {
         this.$el.html(_.template($('#eventTPL').html()));
 
-        // This needs to be replaced with a real events list
-        for (var i in data.events) {
-            this.$el.find("#eventList").append(new boneboiler.views.eventItem({ 'data' : data.events[i], 'parent': this }).el);
+        if (data.events.length > 0) {
+            for (var i in data.events) {
+                this.$el.find("#eventList").append(new boneboiler.views.eventItem({ 'data' : data.events[i], 'parent': this }).el);
+            }
+        } else {
+            this.$el.find("#eventList").html('<h4 class="text-center">No events right now</p>');
         }
     },
     update: function() {
