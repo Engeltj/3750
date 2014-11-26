@@ -263,6 +263,7 @@ boneboiler.views.eventItem = View.extend({
     },
     render: function(options) {
         // Need to change the button depending on event state
+        console.log(options)
         var html = _.template($("#eventItemTPL").html())({ data: options });
         this.$el.append(html);
     },
@@ -273,18 +274,72 @@ boneboiler.views.eventItem = View.extend({
         "click #cancel" : "cancel",
     },
     join: function(e) {
-        alert(this.$el.find("p.text-right.hidden-xs").text())
+        $.ajax({
+            url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/attend',
+            type: 'POST',
+            crossDomain: true,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                Backbone.history.navigate("/events", true);                
+            },
+            error: function(res) {
+                console.log(res)
+                alert(res.responseJSON.message)
+            },
+        })
     },
     approve: function(e) {
         $.ajax({
-            url: boneboiler.config.API + '/',
+            url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/accept',
+            type: 'POST',
+            crossDomain: true,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                Backbone.history.navigate("/events", true);                
+            },
+            error: function(res) {
+                console.log(res)
+                alert(res.responseJSON.message)
+            },
         })
     },
     unattend: function(e) {
-
+        $.ajax({
+            url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/notattend',
+            type: 'POST',
+            crossDomain: true,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                Backbone.history.navigate("/events", true);                
+            },
+            error: function(res) {
+                console.log(res)
+                alert(res.responseJSON.message)
+            },
+        })
     },
     cancel: function(e) {
-
+        $.ajax({
+            url: boneboiler.config.API + '/events/' + this.$el.attr('id') + '/cancel',
+            type: 'POST',
+            crossDomain: true,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                Backbone.history.navigate("/events", true);                
+            },
+            error: function(res) {
+                console.log(res)
+                alert(res.responseJSON.message)
+            },
+        })
     },
 })
 
