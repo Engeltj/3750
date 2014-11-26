@@ -257,6 +257,7 @@ boneboiler.views.events = View.extend({
 });
 
 boneboiler.views.eventItem = View.extend({
+    className: "row",
     initialize: function(options) {
         this.render(options);
     },
@@ -267,9 +268,23 @@ boneboiler.views.eventItem = View.extend({
     },
     events: {
         "click #join" : "join",
+        "click #approve" : "approve",
+        "click #unattend" : "unattend",
+        "click #cancel" : "cancel",
     },
     join: function(e) {
         alert(this.$el.find("p.text-right.hidden-xs").text())
+    },
+    approve: function(e) {
+        $.ajax({
+            url: boneboiler.config.API + '/',
+        })
+    },
+    unattend: function(e) {
+
+    },
+    cancel: function(e) {
+
     },
 })
 
