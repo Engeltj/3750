@@ -207,14 +207,29 @@ boneboiler.views.forgot = View.extend({
 
 boneboiler.views.events = View.extend({
     initialize: function() {
-        this.render();
+        var _this = this;
+        $.ajax({
+            url: boneboiler.config.API + '/events',
+            type: 'GET',
+            crossDomain: true,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                _this.render(res);
+            },
+            error: function(res) {
+                console.log(res)
+                alert(res.responseJSON.message)
+            },
+        })
     }, 
-    render: function() {
+    render: function(data) {
         this.$el.html(_.template($('#eventTPL').html()));
 
         // This needs to be replaced with a real events list
-        for (var i in eventTestData.events) {
-            this.$el.find("#eventList").append(new boneboiler.views.eventItem(eventTestData.events[i]).el);
+        for (var i in data.events) {
+            this.$el.find("#eventList").append(new boneboiler.views.eventItem(data.events[i]).el);
         }
     },
     events: {
