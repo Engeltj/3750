@@ -495,18 +495,16 @@ boneboiler.modals.addEvent = View.extend({
         this.$el.html(_.template($('#addEventTPL').html()));
     },
     events: {
-        "click .close": "cleanup",
+        "click .close": "hide",
         "click #submit": "post",
+        "hidden.bs.modal #addEventModal" : "cleanup"
+    },
+    hide: function(e) {
+        this.$el.find("#addEventModal").modal('hide');
     },
     cleanup: function(e) {
-        var _this = this;
-        e.preventDefault();
-        this.$el.find("#addEventModal").modal('hide');
-
-        // Similar modal hack to make sure we cleanup any modals we generate
-        setTimeout(function() {
-            _this.$el.find('#addEventModal').remove();
-        }, 200);
+        $(e.currentTarget).remove();
+        this.kill();
     },
     post: function(e) {
         // Don't let the form submit
@@ -611,8 +609,9 @@ boneboiler.modals.addEvent = View.extend({
                 },
                 success: function(res) {
                     locationId = parseInt(res.locations[0]['id']);
-                    if (locationId > 0){ //if we got an id for location object, create the event object using this ID
+                    if (locationId > 0) { //if we got an id for location object, create the event object using this ID
                         dataEvent.event.location.id = locationId;
+
                         $.ajax({
                             url: boneboiler.config.API + '/events',
                             type: 'POST',
@@ -628,11 +627,6 @@ boneboiler.modals.addEvent = View.extend({
 
                                 //hide the modal
                                 _this.$el.find("#addEventModal").modal('hide');
-
-                                // Similar modal hack to make sure we cleanup any modals we generate
-                                setTimeout(function() {
-                                    _this.$el.find('#addEventModal').remove();
-                                }, 200);
                             },
                             error: function(res) {
                                 console.log(res)
