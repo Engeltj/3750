@@ -304,6 +304,7 @@ boneboiler.views.admin = View.extend({
 });
 
 boneboiler.views.userItem = View.extend({
+    className: "row",
     initialize: function(options) {
         this.render(options);
     },
@@ -326,9 +327,33 @@ boneboiler.views.userItem = View.extend({
         this.$el.find('select#emailPrefs').val((this.$el.find('select#emailPrefs').val() == 'normal') ? 'staff' : 'normal')
     },
     changeRole: function(e) {
-        // Actually upload the change
-        console.log(this.$el.find('select#emailPrefs').val())
-        this.hideConfirms()
+        var _this = this,        
+            data = {
+                'user' : {
+                    'roles': [
+                        this.$el.find('select#emailPrefs').val()
+                    ]
+                }
+            };
+
+        $.ajax({
+            url: boneboiler.config.API + '/users/' + _this.$el.attr('id'),
+            type: 'PUT',
+            crossDomain: true,
+            data: JSON.stringify(data),
+            processData: false,
+            contentType: 'application/json',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+            },
+            success: function(res) {
+                _this.hideConfirms()
+            },
+            error: function(res) {
+                console.log(res)
+                alert(res.responseJSON.message)
+            },
+        });
     },
     hideConfirms: function() {
         this.$el.find('select#emailPrefs').parent().addClass('col-xs-12').removeClass('col-xs-6 col-sm-5')
