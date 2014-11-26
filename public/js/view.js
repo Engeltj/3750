@@ -216,6 +216,7 @@ boneboiler.views.events = View.extend({
                 xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
             },
             success: function(res) {
+                console.log(res);
                 _this.render(res);
             },
             error: function(res) {
@@ -405,6 +406,136 @@ boneboiler.modals.addEvent = View.extend({
         }, 200);
     },
     post: function(e) {
-        alert("Saving the event goes here");
+        // Don't let the form submit
+        e.preventDefault();
+
+        // Defaults
+        var valid = true, 
+        dataEvent = { 
+            "event": {
+                "owner": {
+                    "id": boneboiler.user.id
+                },
+                "description": "",
+                "location": {
+                    "id": -1
+                },
+                "datetime": "", //2014-11-18T16:20:27.174Z
+                "endtime": "",
+                "trees": [
+                    {
+                        "type": "",
+                        "quantity": -1,
+                    }
+                ],
+                "attendees": [],
+                "staffNotes": ""
+            }
+        }, 
+        dataLocation = {
+            "location": {  
+                "description": "",
+                "address1": "",
+                "address2": "",
+                "city": "",
+                "postal": "",
+                "country": "Canada",
+                "latitude": "",
+                "longitude": ""
+            }
+        }
+
+
+        // Make sure each form field has a value
+        var description = this.$el.find('textarea')[0];
+        if ($(description).val().length == 0){
+            $(description).parent().addClass('has-error');
+        } else {
+            dataEvent.event.description = $(description).val();
+            $(description).parent().removeClass('has-error');
+        }
+        _.each(this.$el.find('input'), function(elem, i) {
+            if ($(elem).val() == '') {
+                $(elem).parent().addClass('has-error');
+                valid = false;
+            } else {
+                if (dataLocation['location'][elem.id] != null){
+                    dataLocation['location'][elem.id] = $(elem).val();
+                } else if (dataEvent.event[elem.id] != null){
+                    dataEvent.event[elem] = $(elem).val();
+                }
+                $(elem).parent().removeClass('has-error');
+            }
+        });
+        if ($('#date').val().split('-').length != 3){
+            $('#date').parent().addClass('has-error');
+            valid = false;
+        }
+        if ($('#time').val().split(':').length < 2){
+            $('#time').parent().addClass('has-error');
+            valid = false;
+        }
+        var datetime = $('#date').val() + '-' + $('#time').val()
+        var dt = datetime.replace(':', '-').split('-')
+        
+        dataEvent.event['datetime'] = new Date(dt[0], dt[1], dt[2], dt[3], dt[4], 0, 0);
+        dataEvent.event['endtime'] = dataEvent.event['datetime'];
+
+
+        // Let the user know they screwed up
+        if (!valid) {
+            alert('Fields are missing input or have incorect values!');
+        } else {
+            // Send the data!
+            console.log(dataLocation);
+            console.log(dataEvent);
+            var locationId = -1;
+            $.ajax({
+                url: boneboiler.config.API + '/users/' + boneboiler.user.id + '/locations',
+                type: 'POST',
+                crossDomain: true,
+                data: JSON.stringify(dataLocation),
+                processData: false,
+                contentType: 'application/json',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+                },
+                success: function(res) {
+                    locationId = parseInt(res.locations[0]['id']);
+                    if (locationId > 0){
+                        dataEvent.event.location.id = locationId;
+                        $.ajax({
+                            url: boneboiler.config.API + '/events',
+                            type: 'POST',
+                            crossDomain: true,
+                            data: JSON.stringify(dataEvent),
+                            processData: false,
+                            contentType: 'application/json',
+                            beforeSend: function(xhr) {
+                                xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
+                            },
+                            success: function(res) {
+                                console.log('event successfully added')
+                                console.log(res)
+                                Backbone.history.navigate("/events", true);
+                            },
+                            error: function(res) {
+                                console.log(res)
+
+                                alert(res.responseJSON.message)
+                            },
+                        })
+                    }
+                },
+                error: function(res) {
+                    console.log(res)
+                    alert(res.responseJSON.message)
+                },
+            })
+        }
+
+
+
+        //alert("Saving the event goes here");
     },
 });

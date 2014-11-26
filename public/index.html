@@ -338,12 +338,24 @@
                                     <div class="col-sm-10 col-xs-12"><textarea name="" id="treeDescription" cols="30" rows="3" class="form-control"></textarea></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="location" class="col-sm-2 col-xs-12 control-label">Location</label>
-                                    <div class="col-sm-10 col-xs-12"><input type="text" class="form-control" id="location"></div>
+                                    <label for="address1" class="col-sm-3 col-xs-12 control-label">Street Address</label>
+                                    <div class="col-sm-9 col-xs-12"><input type="text" class="form-control" id="address1"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="time" class="col-sm-2 col-xs-12 control-label">Time</label>
-                                    <div class="col-sm-10 col-xs-12"><input type="text" class="form-control" id="time"></div>
+                                    <label for="city" class="col-sm-3 col-xs-12 control-label">City</label>
+                                    <div class="col-sm-9 col-xs-12"><input type="text" class="form-control" id="city"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="postal" class="col-sm-3 col-xs-12 control-label">Postal Code</label>
+                                    <div class="col-sm-9 col-xs-12"><input type="text" class="form-control" id="postal"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date" class="col-sm-3 col-xs-12 control-label">Date (YYYY-MM-DD)</label>
+                                    <div class="col-sm-9 col-xs-12"><input type="text" class="form-control" id="date"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="time" class="col-sm-3 col-xs-12 control-label">Time (HH:MM)</label>
+                                    <div class="col-sm-9 col-xs-12"><input type="text" class="form-control" id="time"></div>
                                 </div>
                             </form>
                         </div>
@@ -368,7 +380,7 @@
             boneboiler.config = {
                 'title'       : 'Appleseed Collective',
                 'description' : 'Reducing food waste one tree at a time',
-                'API'         : 'http://localhost:3000'
+                'API'         : 'http://192.168.93.128:3000'
             }
         </script>
 
