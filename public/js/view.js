@@ -47,7 +47,7 @@ boneboiler.views.nav = View.extend({
     logout: function(e) {
         e.preventDefault();
 
-        // Strip all the user from sessionStorage, boneboiler, update the navbar and redirect home 
+        // Strip all the user from localStorage, boneboiler, update the navbar and redirect home 
         $.ajax({
             url: boneboiler.config.API + '/users/current/logout',
             type: 'POST',
@@ -109,7 +109,7 @@ boneboiler.views.login = View.extend({
         if (!valid) {
             alert('Fields are missing values!');
         } else {
-            // Get a session token, save the token in sessionStorage and inject user into boneboiler
+            // Get a session token, save the token in localStorage and inject user into boneboiler
             $.ajax({
                 url: boneboiler.config.API + '/users/authenticate',
                 type: 'POST',
