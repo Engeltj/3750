@@ -245,7 +245,7 @@ boneboiler.views.events = View.extend({
         "keyup #searchField" : "search"
     },
     donate: function(e) {
-        new boneboiler.modals.addEvent();
+        new boneboiler.modals.addEvent({ 'parent': this });
     },
     search: function(e) {
         entries = $('#eventList').children();
@@ -461,8 +461,10 @@ boneboiler.views.userItem = View.extend({
 
 boneboiler.modals.addEvent = View.extend({
     el: "#modals",
-    initialize: function() {
+    parent: null,
+    initialize: function(options) {
         var _this = this;
+        this.parent = options.parent
         this.render();
 
         // Little timeout hack to make sure the modal's HTML is put into the DOM before we try to open it
@@ -492,7 +494,8 @@ boneboiler.modals.addEvent = View.extend({
         e.preventDefault();
 
         // Defaults
-        var valid = true, 
+        var valid = true,
+        _this = this, 
         dataEvent = { 
             "event": {
                 "owner": {
@@ -597,9 +600,14 @@ boneboiler.modals.addEvent = View.extend({
                                 xhr.setRequestHeader("Authorization", "Basic AppleSeed token=" + DB.read('token'))
                             },
                             success: function(res) {
-                                console.log('event successfully added')
-                                console.log(res)
-                                Backbone.history.navigate("/events", true);
+                                _this.parent.update();
+
+                                _this.$el.find("#addEventModal").modal('hide');
+
+                                // Similar modal hack to make sure we cleanup any modals we generate
+                                setTimeout(function() {
+                                    _this.$el.find('#addEventModal').remove();
+                                }, 200);
                             },
                             error: function(res) {
                                 console.log(res)
