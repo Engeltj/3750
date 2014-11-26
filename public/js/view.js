@@ -1,4 +1,4 @@
-/*** BASE VIEW ***/
+// BASE VIEW
 var View = Backbone.View.extend({
     rerender: function(){
         this.undelegateEvents();
@@ -10,18 +10,20 @@ var View = Backbone.View.extend({
     },
 });
 
+// Nav bar view 
 boneboiler.views.nav = View.extend({
     initialize: function() {
         this.render();
     },
     render: function() {
-        // Logged in
+        // Change the nav bar links depending on whether we're logged in or not
         if (boneboiler.user) {
             this.menu = [
                 "<li><a href=\"/\">HOME</a></li>",
                 "<li><a href=\"/events\">HARVESTING EVENTS</a></li>",
                 "<li><a href=\"/account\">ACCOUNT</a></li>",
             ];
+            // Check to see if the logged in user is a staff 
             if ($.inArray("staff", boneboiler.user.roles) != -1) {
                 this.menu.push("<li><a href=\"/admin\">ADMIN</a></li>")
             }
@@ -34,7 +36,6 @@ boneboiler.views.nav = View.extend({
         }
 
         this.$el.html(_.template($('#navTPL').html()));
-
         this.$el.find("#actions").html(this.menu.join(""))
     },
     update: function() {
@@ -46,6 +47,7 @@ boneboiler.views.nav = View.extend({
     logout: function(e) {
         e.preventDefault();
 
+        // Strip all the user from sessionStorage, boneboiler, update the navbar and redirect home 
         $.ajax({
             url: boneboiler.config.API + '/users/current/logout',
             type: 'POST',
@@ -66,6 +68,7 @@ boneboiler.views.nav = View.extend({
     }
 });
 
+// Simple home page view
 boneboiler.views.home = View.extend({
     initialize: function() {
         this.render();
@@ -75,6 +78,7 @@ boneboiler.views.home = View.extend({
     }
 });
 
+// Login page view
 boneboiler.views.login = View.extend({
     initialize: function() {
         this.render();
@@ -101,10 +105,11 @@ boneboiler.views.login = View.extend({
             }
         });
 
-                // Let the user know they screwed up
+        // Let the user know they screwed up
         if (!valid) {
             alert('Fields are missing values!');
         } else {
+            // Get a session token, save the token in sessionStorage and inject user into boneboiler
             $.ajax({
                 url: boneboiler.config.API + '/users/authenticate',
                 type: 'POST',
@@ -125,6 +130,7 @@ boneboiler.views.login = View.extend({
     }
 });
 
+// Register page view
 boneboiler.views.register = View.extend({
     initialize: function() {
         this.render();
@@ -193,6 +199,7 @@ boneboiler.views.register = View.extend({
     }
 });
 
+// Unimplemented forgot password page
 boneboiler.views.forgot = View.extend({
     initialize: function() {
         this.render();
@@ -202,9 +209,12 @@ boneboiler.views.forgot = View.extend({
     },
 });
 
+// Main events view page
 boneboiler.views.events = View.extend({
     initialize: function() {
         var _this = this;
+
+        // Get the events and render on success
         $.ajax({
             url: boneboiler.config.API + '/events',
             type: 'GET',
@@ -225,7 +235,9 @@ boneboiler.views.events = View.extend({
     render: function(data) {
         this.$el.html(_.template($('#eventTPL').html()));
 
+        // Render the events list
         if (data.events.length > 0) {
+            // For each event render and append the HTML of an eventItem view
             for (var i in data.events) {
                 this.$el.find("#eventList").append(new boneboiler.views.eventItem({ 'data' : data.events[i], 'parent': this }).el);
             }
@@ -242,9 +254,11 @@ boneboiler.views.events = View.extend({
         "keyup #searchField" : "search"
     },
     donate: function(e) {
+        // Spawn a new event creation modal
         new boneboiler.modals.addEvent({ 'parent': this });
     },
     search: function(e) {
+        // Filter the events
         entries = $('#eventList').children();
         filter_tokens = $('#searchField')[0].value.split(" "); //tokenize the search field data
         entries.show(); //show all entries
@@ -260,16 +274,19 @@ boneboiler.views.events = View.extend({
     }
 });
 
+// Event item subview
 boneboiler.views.eventItem = View.extend({
     className: "row",
     parent: null,
     initialize: function(options) {
+        // Set the ID of the parent div to the event ID
         this.$el.attr('id', options.data.id);
+        // Keep a reference to the parent event page view
         this.parent = options.parent;
         this.render(options.data);
     },
     render: function(options) {
-        // Need to change the button depending on event state
+        // Render the eventItem template and pass the event data 
         var html = _.template($("#eventItemTPL").html())({ data: options });
         this.$el.append(html);
     },
@@ -279,6 +296,7 @@ boneboiler.views.eventItem = View.extend({
         "click #unattend" : "unattend",
         "click #cancel" : "cancel",
     },
+    // Different events for each button type, mostly the same case though
     join: function(e) {
         var _this = this;
         $.ajax({
@@ -353,6 +371,7 @@ boneboiler.views.eventItem = View.extend({
     },
 })
 
+// Unimplemented account settings page
 boneboiler.views.account = View.extend({
     initialize: function() {
         this.render();
@@ -368,10 +387,12 @@ boneboiler.views.account = View.extend({
     },
 });
 
+// Admin page base view 
 boneboiler.views.admin = View.extend({
     initialize: function() {
         var _this = this;
 
+        // Get the users and render on success
         $.ajax({
             url: boneboiler.config.API + '/users',
             type: 'GET',
@@ -391,20 +412,20 @@ boneboiler.views.admin = View.extend({
     render: function(data) {
         this.$el.html(_.template($('#adminTPL').html()));
 
-        // This needs to be replaced with a real events list
+        // For each user make a userItem subview
         for (var i in data.users) {
             this.$el.find("#userList").append(new boneboiler.views.userItem(data.users[i]).el);
         }
     },
 });
 
+// User item subview
 boneboiler.views.userItem = View.extend({
     className: "row",
     initialize: function(options) {
         this.render(options);
     },
     render: function(options) {
-        // Need to change the button depending on event state
         var html = _.template($("#userItemTPL").html())({ data: options });
         this.$el.append(html);
     },
@@ -413,14 +434,17 @@ boneboiler.views.userItem = View.extend({
         "click #confirm-btn" : "changeRole",
         "click #cancel-btn"  : "roleChangeCancel",
     },
+    // Show the role change confirmation buttons on the view
     roleChangeConfirm: function(e) {
         $(e.currentTarget).parent().removeClass('col-xs-12').addClass('col-xs-6 col-sm-5')
         this.$el.find('.confirmation-btns').css('display', 'block')
     },
+    // Hide buttons on cancel button press
     roleChangeCancel: function(e) {
         this.hideConfirms()
         this.$el.find('select#emailPrefs').val((this.$el.find('select#emailPrefs').val() == 'normal') ? 'staff' : 'normal')
     },
+    // Change the user's role
     changeRole: function(e) {
         var _this = this,        
             data = {
@@ -431,6 +455,7 @@ boneboiler.views.userItem = View.extend({
                 }
             };
 
+        // On success hide the confirms 
         $.ajax({
             url: boneboiler.config.API + '/users/' + _this.$el.attr('id'),
             type: 'PUT',
@@ -450,6 +475,7 @@ boneboiler.views.userItem = View.extend({
             },
         });
     },
+    // Helper function to hide the buttons
     hideConfirms: function() {
         this.$el.find('select#emailPrefs').parent().addClass('col-xs-12').removeClass('col-xs-6 col-sm-5')
         this.$el.find('.confirmation-btns').css('display', 'none')

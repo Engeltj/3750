@@ -3,7 +3,7 @@ var AppRouter = Backbone.Router.extend ({
         "*actions" : "transition",
     },
     transition: function (path) {
-
+        // Get the path out of the window
         boneboiler.path = path || "";
 
         var view = path ? path : 'home';
@@ -32,7 +32,7 @@ var AppRouter = Backbone.Router.extend ({
         // kill some zombies
         if (boneboiler.active) boneboiler.active.kill();
 
-        // add the view to the page
+        // add the view to the page in the content container
         boneboiler.active = new boneboiler.views[view]({ el: "#content" });
 
         // update the document title
@@ -43,10 +43,12 @@ var AppRouter = Backbone.Router.extend ({
     },
 });
 
+// Render the nav bar in the nav container
 boneboiler.nav = new boneboiler.views.nav({ el: '#nav' });
 new AppRouter;
 Backbone.history.start({ pushState: true });
 
+// Load a previous session and inject the user into the boneboiler
 if (DB.read('token')) {
     $.ajax({
         url: boneboiler.config.API + '/users/current',
@@ -65,6 +67,7 @@ if (DB.read('token')) {
     })
 }
 
+// Catch anchor clicks for Backbone
 $(document).on('click', 'a:not([data-bypass])', function(e){
     href = $(this).prop('href')
     root = location.protocol+'//'+location.host+'/'
