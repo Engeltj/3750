@@ -21,6 +21,7 @@ boneboiler.views.nav = View.extend({
             this.menu = [
                 "<li><a href=\"/\">HOME</a></li>",
                 "<li><a href=\"/events\">HARVESTING EVENTS</a></li>",
+                "<li><a id=\"donate\" href=\"#\">DONATE PRODUCE</a></li>",
                 "<li><a href=\"/account\">ACCOUNT</a></li>",
             ];
             // Check to see if the logged in user is a staff 
@@ -43,6 +44,7 @@ boneboiler.views.nav = View.extend({
     },
     events: {
         "click #logout" : "logout",
+        "click #donate" : "donate",
     },
     logout: function(e) {
         e.preventDefault();
@@ -65,7 +67,10 @@ boneboiler.views.nav = View.extend({
                 console.log(res)
             },
         })
-    }
+    },
+    donate: function(e) {
+        new boneboiler.modals.addEvent({ 'parent': this });
+    },
 });
 
 // Simple home page view
