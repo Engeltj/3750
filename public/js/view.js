@@ -105,8 +105,6 @@ boneboiler.views.login = View.extend({
         if (!valid) {
             alert('Fields are missing values!');
         } else {
-            console.log(data);
-
             $.ajax({
                 url: boneboiler.config.API + '/users/authenticate',
                 type: 'POST',
@@ -120,7 +118,6 @@ boneboiler.views.login = View.extend({
                     Backbone.history.navigate("/", true);
                 },
                 error: function(res) {
-                    console.log(res)
                     alert(res.responseJSON.message)
                 },
             })
@@ -543,7 +540,7 @@ boneboiler.modals.addEvent = View.extend({
             if ($(elem).val() == '') {
                 $(elem).parent().addClass('has-error');
                 valid = false;
-            } else {
+            } else { //if field has a value, assign it to the correct json object
                 if (dataLocation['location'][elem.id] != null){
                     dataLocation['location'][elem.id] = $(elem).val();
                 } else if (dataEvent.event[elem.id] != null){
@@ -552,17 +549,24 @@ boneboiler.modals.addEvent = View.extend({
                 $(elem).parent().removeClass('has-error');
             }
         });
+
+        //parse date
         if ($('#date').val().split('-').length != 3){
             $('#date').parent().addClass('has-error');
             valid = false;
         }
+
+        //parse time
         if ($('#time').val().split(':').length < 2){
             $('#time').parent().addClass('has-error');
             valid = false;
         }
+
+        //create date object
         var datetime = $('#date').val() + '-' + $('#time').val()
         var dt = datetime.replace(':', '-').split('-')
         
+        //assign date object to json object for adding to database
         dataEvent.event['datetime'] = new Date(dt[0], dt[1], dt[2], dt[3], dt[4], 0, 0);
         dataEvent.event['endtime'] = dataEvent.event['datetime'];
 
@@ -572,10 +576,8 @@ boneboiler.modals.addEvent = View.extend({
             alert('Fields are missing input or have incorect values!');
         } else {
             // Send the data!
-            console.log(dataLocation);
-            console.log(dataEvent);
             var locationId = -1;
-            $.ajax({
+            $.ajax({ //add location object to database, if success, add event object
                 url: boneboiler.config.API + '/users/' + boneboiler.user.id + '/locations',
                 type: 'POST',
                 crossDomain: true,
@@ -587,7 +589,7 @@ boneboiler.modals.addEvent = View.extend({
                 },
                 success: function(res) {
                     locationId = parseInt(res.locations[0]['id']);
-                    if (locationId > 0){
+                    if (locationId > 0){ //if we got an id for location object, create the event object using this ID
                         dataEvent.event.location.id = locationId;
                         $.ajax({
                             url: boneboiler.config.API + '/events',
@@ -602,6 +604,7 @@ boneboiler.modals.addEvent = View.extend({
                             success: function(res) {
                                 _this.parent.update();
 
+                                //hide the modal
                                 _this.$el.find("#addEventModal").modal('hide');
 
                                 // Similar modal hack to make sure we cleanup any modals we generate
@@ -623,9 +626,5 @@ boneboiler.modals.addEvent = View.extend({
                 },
             })
         }
-
-
-
-        //alert("Saving the event goes here");
     },
 });
